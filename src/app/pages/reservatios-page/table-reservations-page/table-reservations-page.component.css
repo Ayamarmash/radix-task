@@ -1,0 +1,8 @@
+.table-wrapper {
+  background-color: #ffffff;
+  height: 75%;
+  overflow: auto;
+  border-bottom: solid 5px #dcdcdc;
+  border-top: solid 1px #dcdcdc;
+  scrollbar-width: thin;
+}

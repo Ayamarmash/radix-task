@@ -1,0 +1,15 @@
+<div class="page-wrapper">
+  <div class="table-wrapper">
+    <app-mat-table [displayedColumns]="displayedCols"
+                   [dataSource]="data"
+                   (sortChanged)="onSortChange($event)"
+    ></app-mat-table>
+  </div>
+  <app-paginator
+    [totalResultLength]="totalResultLength"
+    [pageSize]="pageSize"
+    [pageIndex]="1"
+    [pageSizeOptions]="pageSizeOptions"
+    (pageChange)="onPaginationChange($event)">
+  </app-paginator>
+</div>

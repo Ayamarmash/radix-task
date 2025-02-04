@@ -1,0 +1,22 @@
+.navbar-container {
+  background-color: #333;
+  display: flex;
+  align-items: center;
+  height: 50px;
+  padding-left: 30px;
+}
+
+.navbar-links {
+  display: flex;
+  gap: 17px;
+}
+
+.navbar-links a {
+  color: #a9a9a9;
+  text-decoration: none;
+}
+
+.navbar-links a.active {
+  color: white;
+}
+

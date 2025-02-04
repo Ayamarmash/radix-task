@@ -5,8 +5,6 @@ const BASE_URL = 'https://envoy-staging.radixtechs.net/reservations/task'
 const STORAGE_KEY = 'reservations_cache';
 const CACHE_EXPIRATION_TIME = 60 * 10 * 1000;
 
-type SortOrder = 'asc' | 'desc';
-
 @Injectable({
   providedIn: 'root'
 })
@@ -17,9 +15,9 @@ export class ReservationsService {
   }
 
 
-  async getReservations(order?: SortOrder, sortBy?: string, page = 1, pageSize = 10) {
+  async getReservations(order?: string, sortBy?: string, page = 1, pageSize = 10) {
     let params = `&page=${page}&page_size=${pageSize}`
-    order ? params += '&order=' + order : ''
+    order === 'asc' || order === 'desc' ? params += '&order=' + order : ''
     sortBy ? params += '&sort=' + sortBy : ''
 
     const cachedData = this.cachingService.getFromCache(STORAGE_KEY, params);
