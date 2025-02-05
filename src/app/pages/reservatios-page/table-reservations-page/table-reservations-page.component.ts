@@ -31,6 +31,7 @@ export class TableReservationsPageComponent extends BaseReservationsPage impleme
   colsKeys = [
     'id',
     'reservationId',
+    'urgent',
     'status',
     'type',
     'scheduled_pickup_time',
@@ -38,7 +39,6 @@ export class TableReservationsPageComponent extends BaseReservationsPage impleme
     'dropoff_time',
     'cancel_time',
     'note',
-    'urgent',
     'distance',
     'duration',
     'created',

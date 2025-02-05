@@ -35,10 +35,20 @@ export class GridReservationsPageComponent extends BaseReservationsPage implemen
   private datePipe = new DatePipe('en-US');
 
   displayedColsGrid: ColDef[] = [
-    {field: 'id', headerName: 'ID',},
-    {field: 'reservationId', headerName: 'Reservation ID', valueFormatter: (params) => params.value || '-'},
-    {field: 'status', headerName: 'Status', valueFormatter: (params) => params.value || '-'},
-    {field: 'type', headerName: 'Type', valueFormatter: (params) => params.value || '-'},
+    {field: 'id', headerName: 'ID', width:100},
+    {field: 'reservationId', headerName: 'Reservation ID', width:130, valueFormatter: (params) => params.value || '-'},
+    {
+      field: 'urgent', headerName: 'Urgent',
+      width: 100,
+      valueFormatter: (params) => params.value || '-',
+      cellRenderer: (params: ICellRendererParams) => {
+        return params.value
+          ? '<span style="color: red;">Yes</span>'
+          : '<span>No</span>';
+      }
+    },
+    {field: 'status', headerName: 'Status', width:100, valueFormatter: (params) => params.value || '-'},
+    {field: 'type', headerName: 'Type', width:120, valueFormatter: (params) => params.value || '-'},
     {
       field: 'scheduled_pickup_time',
       headerName: 'Scheduled Pickup Time',
@@ -61,20 +71,11 @@ export class GridReservationsPageComponent extends BaseReservationsPage implemen
     },
     {
       field: 'note', headerName: 'Note',
+      width:400,
       wrapText: true,
       cellRenderer: (params: any) => {
         return this.formatText(params.value);
       },
-    },
-    {
-      field: 'urgent', headerName: 'Urgent',
-      width: 100,
-      valueFormatter: (params) => params.value || '-',
-      cellRenderer: (params: ICellRendererParams) => {
-        return params.value
-          ? '<span style="color: red;">Yes</span>'
-          : '<span>No</span>';
-      }
     },
     {field: 'distance', headerName: 'Distance', valueFormatter: (params) => params.value || '-'},
     {field: 'duration', headerName: 'Duration', valueFormatter: (params) => params.value || '-'},

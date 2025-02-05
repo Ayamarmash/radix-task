@@ -28,7 +28,7 @@ export class GridComponent {
     this.gridApi = params.api;
   }
 
-  sortData(event: SortChangedEvent) {
+  sortData() {
     const colState = this.gridApi.getColumnState();
     const activeSortCols = colState.filter((col: { colId: string, sort: string | null }) => {
       return col.sort !== null
@@ -46,7 +46,8 @@ export class GridComponent {
   getRowHeight(params: any) {
     const noteContent = params.data.note || '';
     const lineCount = noteContent.split('\n').length;
-    return 80 + lineCount * 20;
+
+    return (150 + lineCount/2) + lineCount * 20;
   }
 
 }
