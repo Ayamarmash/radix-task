@@ -28,7 +28,7 @@ export class GridComponent {
     this.gridApi = params.api;
   }
 
-  sortData() {
+  sortData(event: SortChangedEvent) {
     const colState = this.gridApi.getColumnState();
     const activeSortCols = colState.filter((col: { colId: string, sort: string | null }) => {
       return col.sort !== null
