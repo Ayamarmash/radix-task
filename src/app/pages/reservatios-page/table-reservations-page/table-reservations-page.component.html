@@ -1,14 +1,17 @@
 <div class="page-wrapper">
   <div class="table-wrapper">
-    <app-mat-table [displayedColumns]="displayedCols"
+    <app-mat-table *ngIf="!isLoading" [displayedColumns]="displayedCols"
+                   [colsKeys]="colsKeys"
                    [dataSource]="data"
                    (sortChanged)="onSortChange($event)"
     ></app-mat-table>
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
   </div>
   <app-paginator
+    [disabled]="isLoading"
     [totalResultLength]="totalResultLength"
     [pageSize]="pageSize"
-    [pageIndex]="1"
+    [pageIndex]="currentPage"
     [pageSizeOptions]="pageSizeOptions"
     (pageChange)="onPaginationChange($event)">
   </app-paginator>

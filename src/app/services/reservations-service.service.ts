@@ -1,10 +1,16 @@
 import {Injectable} from '@angular/core'
 import {CachingService} from "./caching-service";
+import {Reservation} from "../models/reservations";
 
 const BASE_URL = 'https://envoy-staging.radixtechs.net/reservations/task'
 const STORAGE_KEY = 'reservations_cache';
 const CACHE_EXPIRATION_TIME = 60 * 10 * 1000;
-
+export interface ReservationsResponse {
+  data: Reservation[];
+  status: string;
+  status_code: number;
+  total_count: number;
+}
 @Injectable({
   providedIn: 'root'
 })
@@ -22,15 +28,14 @@ export class ReservationsService {
 
     const cachedData = this.cachingService.getFromCache(STORAGE_KEY, params);
     if (cachedData) {
-      console.log('from cache ')
       return cachedData;
     }
 
     try {
       const res = await fetch(`${BASE_URL}?format=json${params}`)
-      const data = await res.json()
+      const data:ReservationsResponse = await res.json()
       this.cachingService.saveToCache(STORAGE_KEY, params, data, CACHE_EXPIRATION_TIME)
-      console.log('added to cache ')
+
       return data
     } catch (err) {
       throw err

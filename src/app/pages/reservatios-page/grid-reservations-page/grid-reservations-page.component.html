@@ -1,0 +1,17 @@
+<div class="page-wrapper">
+  <div class="grid-wrapper">
+    <app-grid *ngIf="!isLoading" [displayedColumns]="displayedColsGrid"
+              [dataSource]="data"
+              (sortChanged)="onSortChange($event)"
+    ></app-grid>
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
+  </div>
+  <app-paginator
+    [disabled]="isLoading"
+    [totalResultLength]="totalResultLength"
+    [pageSize]="pageSize"
+    [pageIndex]="currentPage"
+    [pageSizeOptions]="pageSizeOptions"
+    (pageChange)="onPaginationChange($event)">
+  </app-paginator>
+</div>

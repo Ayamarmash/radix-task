@@ -6,3 +6,9 @@
   border-top: solid 1px #dcdcdc;
   scrollbar-width: thin;
 }
+.mat-mdc-progress-spinner{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

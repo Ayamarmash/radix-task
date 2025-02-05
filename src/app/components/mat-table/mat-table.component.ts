@@ -13,9 +13,7 @@ import {
 } from "@angular/material/table";
 import {DatePipe, NgClass, NgForOf, NgIf} from "@angular/common";
 import {MatSort, MatSortHeader} from "@angular/material/sort";
-import {FormatColumnPipe} from "../../pipes/format-column.pipe";
 import {PaginatorComponent} from "../paginator/paginator.component";
-import {FormatDataPipe} from "../../pipes/format-data.pipe";
 
 @Component({
   selector: 'app-mat-table',
@@ -33,11 +31,9 @@ import {FormatDataPipe} from "../../pipes/format-data.pipe";
     MatHeaderRowDef,
     NgForOf,
     MatSort,
-    FormatColumnPipe,
     MatSortHeader,
     NgIf,
     PaginatorComponent,
-    FormatDataPipe,
     NgClass,
     DatePipe
   ],
@@ -45,7 +41,8 @@ import {FormatDataPipe} from "../../pipes/format-data.pipe";
   styleUrls: ['./mat-table.component.css']
 })
 export class MatTableComponent {
-  @Input() displayedColumns: string[] = [];
+  @Input() colsKeys: string[] = [];
+  @Input() displayedColumns: any;
   @Input() dataSource: any[] = [];
   @Output() sortChanged = new EventEmitter<{ sortBy: string, order: string }>();
 
@@ -53,7 +50,6 @@ export class MatTableComponent {
   order: 'asc' | 'desc' = 'asc';
 
   sortData(column: string): void {
-    console.log(column)
     if (this.activeSortColumn === column) {
       this.order = this.order === 'asc' ? 'desc' : 'asc';
     } else {

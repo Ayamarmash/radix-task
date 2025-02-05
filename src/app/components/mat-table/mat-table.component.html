@@ -1,16 +1,22 @@
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-  <ng-container matSort *ngFor="let column of displayedColumns" [matColumnDef]="column">
-    <th mat-sort-header mat-header-cell *matHeaderCellDef class="col-title" (click)="sortData(column)">
-      {{ column | formatColumn }}
+  <ng-container matSort *ngFor="let columnKey of colsKeys" [matColumnDef]="columnKey">
+    <th mat-sort-header mat-header-cell *matHeaderCellDef class="col-title" (click)="sortData(columnKey)">
+      {{ displayedColumns[columnKey].title }}
     </th>
     <td mat-cell *matCellDef="let element">
-      <span *ngIf="column === 'urgent' && element[column]" class="urgent"> Urgent </span>
-      <span *ngIf="column !== 'urgent'">{{ element[column] | formatData}}</span>
+      <span *ngIf="displayedColumns[columnKey].type === 'boolean'" [ngClass]="{'urgent': element[columnKey]}">
+        {{element[columnKey] ? 'Yes' : 'No'}}
+      </span>
+
+      <span *ngIf="displayedColumns[columnKey].type === 'datetime'">{{ element[columnKey] | date:'medium' }}</span>
+
+      <span
+        *ngIf="displayedColumns[columnKey].type !== 'datetime' && displayedColumns[columnKey].type !== 'boolean' ">{{ element[columnKey] }}</span>
     </td>
   </ng-container>
 
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  <tr mat-header-row *matHeaderRowDef="colsKeys"></tr>
+  <tr mat-row *matRowDef="let row; columns: colsKeys;"></tr>
 
 </table>
