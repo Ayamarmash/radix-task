@@ -43,4 +43,10 @@ export class GridComponent {
     }
   }
 
+  getRowHeight(params: any) {
+    const noteContent = params.data.note || '';
+    const lineCount = noteContent.split('\n').length;
+    return 80 + lineCount * 20;
+  }
+
 }

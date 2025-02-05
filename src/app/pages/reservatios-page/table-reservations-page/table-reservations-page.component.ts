@@ -5,6 +5,10 @@ import {ReservationsService} from "../../../services/reservations-service.servic
 import {PaginatorComponent} from "../../../components/paginator/paginator.component";
 import {NgIf} from "@angular/common";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
+import {DatePickerComponent} from "../../../components/date-picker/date-picker.component";
+import {MatSlideToggle} from "@angular/material/slide-toggle";
+import {FormsModule} from "@angular/forms";
+import {MatButton} from "@angular/material/button";
 
 @Component({
   selector: 'app-table-reservations-page',
@@ -13,7 +17,11 @@ import {MatProgressSpinner} from "@angular/material/progress-spinner";
     MatTableComponent,
     PaginatorComponent,
     NgIf,
-    MatProgressSpinner
+    MatProgressSpinner,
+    DatePickerComponent,
+    MatSlideToggle,
+    FormsModule,
+    MatButton
   ],
   templateUrl: './table-reservations-page.component.html',
   styleUrl: './table-reservations-page.component.css'
@@ -45,7 +53,7 @@ export class TableReservationsPageComponent extends BaseReservationsPage impleme
     'pickup_time': {title: 'Pickup Time', type: 'datetime'},
     'dropoff_time': {title: 'Dropoff Time', type: 'datetime'},
     'cancel_time': {title: 'Cancel Time', type: 'datetime'},
-    'note': {title: 'Note', type: 'text'},
+    'note': {title: 'Note', type: 'rows'},
     'urgent': {title: 'Urgent', type: 'boolean'},
     'distance': {title: 'Distance', type: 'number'},
     'duration': {title: 'Duration', type: 'number'},

@@ -35,7 +35,7 @@ import {PaginatorComponent} from "../paginator/paginator.component";
     NgIf,
     PaginatorComponent,
     NgClass,
-    DatePipe
+    DatePipe,
   ],
   templateUrl: './mat-table.component.html',
   styleUrls: ['./mat-table.component.css']

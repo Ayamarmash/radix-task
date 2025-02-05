@@ -1,8 +1,15 @@
 <div class="page-wrapper">
+  <div class="filters">
+    <div class="date-pickers">
+      <app-date-picker Type="start" Title="Start Date" (dateChanged)="onDateChange($event)"></app-date-picker>
+      <app-date-picker Type="end" Title="End Date" (dateChanged)="onDateChange($event)"></app-date-picker>
+    </div>
+    <mat-slide-toggle (toggleChange)="urgentToggle()">Urgent only</mat-slide-toggle>
+  </div>
   <div class="table-wrapper">
     <app-mat-table *ngIf="!isLoading" [displayedColumns]="displayedCols"
                    [colsKeys]="colsKeys"
-                   [dataSource]="data"
+                   [dataSource]="dataToShow"
                    (sortChanged)="onSortChange($event)"
     ></app-mat-table>
     <mat-spinner *ngIf="isLoading"></mat-spinner>

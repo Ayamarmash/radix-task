@@ -7,6 +7,11 @@ import {PaginatorComponent} from "../../../components/paginator/paginator.compon
 import {ColDef, ICellRendererParams} from "ag-grid-community";
 import {DatePipe, NgIf} from "@angular/common";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
+import {DatePickerComponent} from "../../../components/date-picker/date-picker.component";
+import {MatSlideToggle} from "@angular/material/slide-toggle";
+import {FormsModule} from "@angular/forms";
+import {AgGridAngular} from "ag-grid-angular";
+import {MatButton} from "@angular/material/button";
 
 @Component({
   selector: 'app-grid-reservations-page',
@@ -17,6 +22,11 @@ import {MatProgressSpinner} from "@angular/material/progress-spinner";
     PaginatorComponent,
     NgIf,
     MatProgressSpinner,
+    DatePickerComponent,
+    MatSlideToggle,
+    FormsModule,
+    AgGridAngular,
+    MatButton,
   ],
   templateUrl: './grid-reservations-page.component.html',
   styleUrl: './grid-reservations-page.component.css'
@@ -25,48 +35,52 @@ export class GridReservationsPageComponent extends BaseReservationsPage implemen
   private datePipe = new DatePipe('en-US');
 
   displayedColsGrid: ColDef[] = [
-    {field: 'id', headerName: 'ID'},
-    {field: 'reservationId', headerName: 'Reservation ID'},
-    {field: 'status', headerName: 'Status'},
-    {field: 'type', headerName: 'Type'},
+    {field: 'id', headerName: 'ID',},
+    {field: 'reservationId', headerName: 'Reservation ID', valueFormatter: (params) => params.value || '-'},
+    {field: 'status', headerName: 'Status', valueFormatter: (params) => params.value || '-'},
+    {field: 'type', headerName: 'Type', valueFormatter: (params) => params.value || '-'},
     {
       field: 'scheduled_pickup_time',
       headerName: 'Scheduled Pickup Time',
-      valueFormatter: (params) => this.datePipe.transform(params.value, 'MMM d, y, h:mm a') || '',
+      valueFormatter: (params) => this.datePipe.transform(params.value, 'MMM d, y, h:mm a') || '-',
     },
     {
       field: 'pickup_time',
       headerName: 'Pickup Time',
-      valueFormatter: (params) => this.datePipe.transform(params.value, 'MMM d, y, h:mm a') || '',
+      valueFormatter: (params) => this.datePipe.transform(params.value, 'MMM d, y, h:mm a') || '-',
     },
     {
       field: 'dropoff_time',
       headerName: 'Dropoff Time',
-      valueFormatter: (params) => this.datePipe.transform(params.value, 'MMM d, y, h:mm a') || '',
+      valueFormatter: (params) => this.datePipe.transform(params.value, 'MMM d, y, h:mm a') || '-',
     },
     {
       field: 'cancel_time',
       headerName: 'Cancel Time',
-      valueFormatter: (params) => this.datePipe.transform(params.value, 'MMM d, y, h:mm a') || '',
+      valueFormatter: (params) => this.datePipe.transform(params.value, 'MMM d, y, h:mm a') || '-',
     },
     {
       field: 'note', headerName: 'Note',
-
+      wrapText: true,
+      cellRenderer: (params: any) => {
+        return this.formatText(params.value);
+      },
     },
     {
       field: 'urgent', headerName: 'Urgent',
-
+      width: 100,
+      valueFormatter: (params) => params.value || '-',
       cellRenderer: (params: ICellRendererParams) => {
         return params.value
-          ? '<span style="color: red; font-weight: bold;">Yes</span>'
+          ? '<span style="color: red;">Yes</span>'
           : '<span>No</span>';
       }
     },
-    {field: 'distance', headerName: 'Distance'},
-    {field: 'duration', headerName: 'Duration'},
+    {field: 'distance', headerName: 'Distance', valueFormatter: (params) => params.value || '-'},
+    {field: 'duration', headerName: 'Duration', valueFormatter: (params) => params.value || '-'},
     {
       field: 'created', headerName: 'Created',
-      valueFormatter: (params) => this.datePipe.transform(params.value, 'MMM d, y, h:mm a') || '',
+      valueFormatter: (params) => this.datePipe.transform(params.value, 'MMM d, y, h:mm a') || '-',
     }
   ];
 
@@ -76,5 +90,14 @@ export class GridReservationsPageComponent extends BaseReservationsPage implemen
 
   async ngOnInit() {
     await this.fetchReservations();
+  }
+
+  formatText(text: string): string {
+    if (!text) return '';
+    return text
+      .split('\r\n')
+      .filter(line => line.trim() !== '')
+      .map(line => `● ${line}`)
+      .join(`<br>`);
   }
 }
