@@ -14,6 +14,7 @@ import {
 import {DatePipe, NgClass, NgForOf, NgIf} from "@angular/common";
 import {MatSort, MatSortHeader} from "@angular/material/sort";
 import {PaginatorComponent} from "../paginator/paginator.component";
+import {ListDirective} from "../../directives/list.directive";
 
 @Component({
   selector: 'app-mat-table',
@@ -36,6 +37,7 @@ import {PaginatorComponent} from "../paginator/paginator.component";
     PaginatorComponent,
     NgClass,
     DatePipe,
+    ListDirective,
   ],
   templateUrl: './mat-table.component.html',
   styleUrls: ['./mat-table.component.css']
